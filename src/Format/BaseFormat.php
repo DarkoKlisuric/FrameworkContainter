@@ -2,7 +2,7 @@
 
 namespace App\Format;
 
-class BaseFormat
+abstract class BaseFormat
 {
     private $data;
 
@@ -21,10 +21,7 @@ class BaseFormat
         $this->data = $data;
     }
 
-    public function convert()
-    {
-        return "I'm not converting anything";
-    }
+    public abstract  function convert();
 
     public function __toString()
     {
