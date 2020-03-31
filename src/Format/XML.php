@@ -2,7 +2,16 @@
 
 namespace App\Format;
 
-class XML
+class XML extends BaseFormat
 {
+    public function convert()
+    {
+        $result = '';
 
+        foreach ($this->getData() as $key => $value) {
+            $result .= '<'. $key . '>' . $value . '</' . $key .'>';
+        }
+
+        return htmlspecialchars($result);
+    }
 }
