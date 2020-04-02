@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Format;
 
-class XML extends BaseFormat implements NamedFormatInterface
+class XML extends BaseFormat implements
+    NamedFormatInterface, FormatInterface
 {
-    public function convert()
+    public function convert():string
     {
         $result = '';
 
