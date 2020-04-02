@@ -21,7 +21,7 @@ abstract class BaseFormat
         $this->data = $data;
     }
 
-    public abstract  function convert();
+    public abstract function convert();
 
     public function __toString()
     {
