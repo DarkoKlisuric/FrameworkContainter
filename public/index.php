@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Format\JSON;
 use App\Format\XML;
 use App\Format\YAML;
+use App\Serializer;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -13,8 +14,5 @@ $data = [
     "surname" => "Klisuric"
 ];
 
-$formats = [
-    new JSON($data),
-    new XML($data),
-    new YAML($data)
-];
+$serializer = new Serializer(new JSON());
+var_dump($serializer->serialize($data));
