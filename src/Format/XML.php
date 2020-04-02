@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Format;
 
 class XML extends BaseFormat implements NamedFormatInterface
@@ -15,7 +17,7 @@ class XML extends BaseFormat implements NamedFormatInterface
         return htmlspecialchars($result);
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'XML';
     }

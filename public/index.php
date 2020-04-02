@@ -1,33 +1,47 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Format\JSON;
 use App\Format\XML;
 use App\Format\YAML;
-use App\Format\FromStringInterface;
-use App\Format\NamedFormatInterface;
+use \App\Format\BaseFormat;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+function convertData(\App\Format\BaseFormat $format) {
+    return $format->convert();
+}
+
+function getFormatName(\App\Format\NamedFormatInterface $format) {
+    return $format->getName();
+}
+
+function getFormatByName(array $formats, string $name): ?BaseFormat
+{
+    foreach ($formats as $format) {
+        if ($format instanceof  \App\Format\NamedFormatInterface
+        && $format->getName() === $name) {
+            return $format;
+        }
+    }
+
+    return null;
+}
+
 $data = [
-    "key" => "value",
-    "key2" => "value2"
+    "name" => "Darko",
+    "surname" => "Klisuric"
 ];
 
 $json = new JSON($data);
 $xml = new XML($data);
 $yaml = new YAML($data);
 
+$formats = [
+    new JSON($data),
+    new XML($data),
+    new YAML($data)
+];
 
-$formats = [$json, $xml, $yaml];
-
-foreach ($formats as $format) {
-    if ($format instanceof NamedFormatInterface) {
-        var_dump($format->getName());
-    }
-
-    if ($format instanceof FromStringInterface) {
-        var_dump($format->convertFromString('{"name": "Darko", "surname": "Klisuric"}'));
-    }
-}
-
-
+var_dump(getFormatByName($formats, 'JSON'));
