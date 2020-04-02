@@ -1,7 +1,7 @@
 <?php
 
-
-declare(strict_types=1);
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 use App\Format\JSON;
 use App\Format\XML;
@@ -11,6 +11,7 @@ use App\Controller\IndexController;
 use App\Container;
 
 require __DIR__ . '/../vendor/autoload.php';
+
 
 
 $data = [
@@ -34,7 +35,7 @@ $container->addService('format.xml', function() use ($container) {
 });
 
 $container->addService('format', function() use ($container) {
-    $container->getService('format.json');
+    return $container->getService('format.xml');
 });
 
 $container->addService('serializer', function() use ($container) {
@@ -48,5 +49,11 @@ $container->addService('controller.index', function() use ($container) {
 $controller = $container->getService('controller.index')->index();
 
 echo '<pre>';
-var_dump($container);
+var_dump($container->getServices());
 echo '</pre>';
+
+
+echo '<pre>';
+var_dump($controller);
+echo '</pre>';
+
