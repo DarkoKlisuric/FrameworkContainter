@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Format;
 
-interface NamedFormatInterface {
+interface NamedFormatInterface
+{
     public function getName();
 }
