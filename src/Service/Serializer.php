@@ -4,6 +4,10 @@ namespace App\Service;
 
 use App\Format\FormatInterface;
 
+/**
+ * Class Serializer
+ * @package App\Service
+ */
 class Serializer
 {
     /**
@@ -16,6 +20,10 @@ class Serializer
         $this->format = $format;
     }
 
+    /**
+     * @param $data
+     * @return string
+     */
     public function serialize($data): string
     {
         $this->format->setData($data);

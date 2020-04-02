@@ -4,6 +4,10 @@ namespace App\Controller;
 
 use App\Service\Serializer;
 
+/**
+ * Class IndexController
+ * @package App\Controller
+ */
 class IndexController
 {
     /**
@@ -11,6 +15,10 @@ class IndexController
      */
     private Serializer $serializer;
 
+    /**
+     * IndexController constructor.
+     * @param Serializer $serializer
+     */
     public function __construct(Serializer $serializer)
     {
         $this->serializer = $serializer;
