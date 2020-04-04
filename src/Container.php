@@ -22,11 +22,6 @@ class Container
     private array $aliases = [];
 
     /**
-     * @var array
-     */
-    private array $serviceParamteres = [];
-
-    /**
      * @param string $name
      * @param Closure $closure
      * @param string $alias
@@ -127,25 +122,27 @@ class Container
 
                     $type = $argument->getClass()->getName();
 
+                    $serviceParamters = [];
+
                     if ($this->hasService($type) || $this->hasAlias($type)) {
-                        $this->serviceParamteres[] = $this->getService($type)
+                        $serviceParamters[] = $this->getService($type)
                             ?? $this->getAlias($type);
                     } else {
-                        $this->serviceParamteres[] = function () use ($type) {
+                        $serviceParamters[] = function () use ($type) {
                             return $this->getService($type)
                                 ?? $this->getAlias($type);
                         };
                     }
                 }
 
-                $this->addService($serviceName, function () use ($serviceName) {
-                    foreach ($this->serviceParamteres as &$serviceParamter) {
+                $this->addService($serviceName, function () use ($serviceName, $serviceParamters) {
+                    foreach ($serviceParamters as &$serviceParamter) {
                         if ($serviceParamter instanceof \Closure) {
                             $serviceParamter = $serviceParamter();
                         }
                     }
 
-                    return new $serviceName(...$this->serviceParamteres);
+                    return new $serviceName(...$serviceParamters);
                 });
 
             } catch (\ReflectionException $e) {

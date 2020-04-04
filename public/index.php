@@ -6,8 +6,6 @@ error_reporting(E_ALL);
 use App\Format\JSON;
 use App\Format\XML;
 use App\Format\YAML;
-use App\Service\Serializer;
-use App\Controller\IndexController;
 use App\Container;
 use App\Format\FormatInterface;
 
@@ -39,15 +37,6 @@ $container->addService('format', function() use ($container) {
     return $container->getService('format.xml');
 }, FormatInterface::class);
 
-$container->addService('serializer', function() use ($container) {
-    return new Serializer($container->getService('format'));
-});
-
-$container->addService('controller.index', function() use ($container) {
-    return new IndexController($container->getService('serializer'));
-});
-
-$controller = $container->getService('controller.index')->index();
 
 $container->loadServices('App\\Service');
 $container->loadServices('App\\Controller');
@@ -57,8 +46,7 @@ echo '<pre>';
 var_dump($container->getServices());
 echo '</pre>';
 
-
 echo '<pre>';
-var_dump($controller);
+var_dump($container->getService('App\\Controller\\IndexController')->index());
 echo '</pre>';
 
