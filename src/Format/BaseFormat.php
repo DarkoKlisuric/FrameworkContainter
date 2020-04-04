@@ -8,9 +8,6 @@ namespace App\Format;
  */
 abstract class BaseFormat
 {
-    /**
-     * @var
-     */
     private $data;
 
     /**

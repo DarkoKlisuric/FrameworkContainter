@@ -3,6 +3,7 @@
 namespace App;
 
 use Closure;
+use ReflectionClass;
 
 /**
  * Class Container
@@ -19,6 +20,11 @@ class Container
      * @var array
      */
     private array $aliases = [];
+
+    /**
+     * @var array
+     */
+    private array $serviceParamteres = [];
 
     /**
      * @param string $name
@@ -105,6 +111,47 @@ class Container
             return $file !== '.' && $file !== '..';
         });
 
-        var_dump($files);
+        foreach ($files as $file) {
+
+            try {
+                $class = new ReflectionClass(
+                    $namespace . '\\' . basename($file, '.php')
+                );
+                $serviceName = $class->getName();
+
+                $constructor = $class->getConstructor();
+
+                $arguments = $constructor->getParameters();
+
+                foreach ($arguments as $argument) {
+
+                    $type = $argument->getClass()->getName();
+
+                    if ($this->hasService($type) || $this->hasAlias($type)) {
+                        $this->serviceParamteres[] = $this->getService($type)
+                            ?? $this->getAlias($type);
+                    } else {
+                        $this->serviceParamteres[] = function () use ($type) {
+                            return $this->getService($type)
+                                ?? $this->getAlias($type);
+                        };
+                    }
+                }
+
+                $this->addService($serviceName, function () use ($serviceName) {
+                    foreach ($this->serviceParamteres as &$serviceParamter) {
+                        if ($serviceParamter instanceof \Closure) {
+                            $serviceParamter = $serviceParamter();
+                        }
+                    }
+
+                    return new $serviceName(...$this->serviceParamteres);
+                });
+
+            } catch (\ReflectionException $e) {
+                $e->getMessage();
+            }
+
+        }
     }
 }
