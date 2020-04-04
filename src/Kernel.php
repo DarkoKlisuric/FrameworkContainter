@@ -72,6 +72,8 @@ class Kernel
             return $container->getService('format.json');
         }, FormatInterface::class);
 
+        $container->loadServices('App\\Service');
+        
         AnnotationRegistry::registerLoader('class_exists');
 
         $reader = new AnnotationReader();
