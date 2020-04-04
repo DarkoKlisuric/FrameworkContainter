@@ -7,6 +7,7 @@ use App\Service\Serializer;
 /**
  * Class IndexController
  * @package App\Controller
+ * @Route("/")
  */
 class IndexController
 {
@@ -26,6 +27,7 @@ class IndexController
 
     /**
      * @return string
+     * @Route("/")
      */
     public function index()
     {

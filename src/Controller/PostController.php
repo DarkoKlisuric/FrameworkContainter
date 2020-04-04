@@ -7,6 +7,7 @@ use App\Service\Serializer;
 /**
  * Class PostController
  * @package App\Controller
+ * @Route("/posts")
  */
 class PostController
 {
@@ -26,11 +27,24 @@ class PostController
 
     /**
      * @return string
+     * @Route("/")
      */
     public function index()
     {
         return $this->serializer->serialize([
             'Action' => 'Post',
+            'TIme' => time()
+        ]);
+    }
+
+    /**
+     * @return string
+     * @Route("/one")
+     */
+    public function one()
+    {
+        return $this->serializer->serialize([
+            'Action' => 'PostOne',
             'TIme' => time()
         ]);
     }
