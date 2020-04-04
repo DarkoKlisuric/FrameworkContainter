@@ -89,4 +89,22 @@ class Container
             'aliases' => $this->aliases
         ];
     }
+
+    public function loadServices(string $namespace): void
+    {
+        $baseDir = __DIR__ . '/';
+
+        $actualDirectory = str_replace('\\', '/', $namespace);
+
+        $actualDirectory = $baseDir . substr(
+            $actualDirectory,
+                strpos($actualDirectory, '/') +1
+            );
+
+        $files = array_filter(scandir($actualDirectory), function ($file) {
+            return $file !== '.' && $file !== '..';
+        });
+
+        var_dump($files);
+    }
 }

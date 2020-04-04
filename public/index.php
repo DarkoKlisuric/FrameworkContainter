@@ -49,6 +49,10 @@ $container->addService('controller.index', function() use ($container) {
 
 $controller = $container->getService('controller.index')->index();
 
+$container->loadServices('App\\Service');
+$container->loadServices('App\\Controller');
+
+
 echo '<pre>';
 var_dump($container->getServices());
 echo '</pre>';
