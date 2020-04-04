@@ -16,12 +16,27 @@ class Container
     private array $services = [];
 
     /**
+     * @var array
+     */
+    private array $aliases = [];
+
+    /**
      * @param string $name
      * @param Closure $closure
+     * @param string $alias
      */
-    public function addService(string $name, Closure $closure): void
+    public function addService(string $name, Closure $closure, ?string  $alias = null): void
     {
         $this->services[$name] = $closure;
+
+        if ($alias) {
+            $this->addAlias($alias, $name);
+        }
+    }
+
+    public function addAlias(string $alias, string $service): void
+    {
+        $this->aliases[$alias] = $service;
     }
 
     /**
@@ -31,6 +46,15 @@ class Container
     public function hasService(string $name): bool
     {
         return isset($this->services[$name]);
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function hasAlias(string $name): bool
+    {
+        return isset($this->aliases[$name]);
     }
 
     /**
@@ -50,6 +74,11 @@ class Container
         return $this->services[$name];
     }
 
+    public function getAlias(string $name)
+    {
+        return $this->getService($this->aliases[$name]);
+    }
+
     /**
      * @return array
      */
@@ -57,6 +86,7 @@ class Container
     {
         return [
             'services' => array_keys($this->services),
+            'aliases' => $this->aliases
         ];
     }
 }
