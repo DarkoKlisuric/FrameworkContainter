@@ -7,6 +7,11 @@ namespace Composer\Autoload;
 class ComposerStaticInit0338c9d97a559399a512115778786f94
 {
     public static $prefixLengthsPsr4 = array (
+        'D' => 
+        array (
+            'Doctrine\\Common\\Lexer\\' => 22,
+            'Doctrine\\Common\\Annotations\\' => 28,
+        ),
         'A' => 
         array (
             'App\\' => 4,
@@ -14,6 +19,14 @@ class ComposerStaticInit0338c9d97a559399a512115778786f94
     );
 
     public static $prefixDirsPsr4 = array (
+        'Doctrine\\Common\\Lexer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
+        ),
+        'Doctrine\\Common\\Annotations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',

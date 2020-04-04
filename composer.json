@@ -2,7 +2,8 @@
   "name": "container/conainer-framework",
   "require": {
     "php": ">=7.4.0",
-    "ext-json": "*"
+    "ext-json": "*",
+    "doctrine/annotations": "^1.10"
   },
   "autoload": {
      "psr-4": {

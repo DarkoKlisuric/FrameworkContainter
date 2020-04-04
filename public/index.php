@@ -50,3 +50,7 @@ echo '<pre>';
 var_dump($container->getService('App\\Controller\\IndexController')->index());
 echo '</pre>';
 
+echo '<pre>';
+var_dump($container->getService('App\\Controller\\PostController')->index());
+echo '</pre>';
+
