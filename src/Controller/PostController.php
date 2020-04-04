@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Annotations\Route;
 use App\Service\Serializer;
 
 /**

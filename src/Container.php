@@ -91,7 +91,7 @@ class Container
         ];
     }
 
-    public function loadServices(string $namespace): void
+    public function loadServices(string $namespace, \Closure $closure = null): void
     {
         $baseDir = __DIR__ . '/';
 
@@ -145,10 +145,12 @@ class Container
                     return new $serviceName(...$serviceParamters);
                 });
 
+                if ($closure) {
+                    $closure($serviceName, $class);
+                }
             } catch (\ReflectionException $e) {
                 $e->getMessage();
             }
-
         }
     }
 }
